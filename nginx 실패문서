@@ -1,0 +1,25 @@
+  web:
+    build: .
+    ports:
+        - "8000:8000"
+    command: gunicorn app.wsgi:application --bind 0.0.0.0:8000     
+    links:
+        - db
+
+  nginx:
+    image: nginx:latest
+    container_name: nginx
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx.conf.d  web:
+    build: .
+    ports:
+        - "8000:8000"
+    command: gunicorn app.wsgi:application --bind 0.0.0.0:8000     
+    links:
+        - db
+
+  nginx:
+    image: nginx:latest
+    container_name: nginx
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx.conf.d
